@@ -47,7 +47,7 @@ export function AuthorDetail() {
     );
 
     if (!author) {
-        return <div>Loading...</div>;
+        return <div>Loading...Restricted Area</div>;
     }
 
     return(

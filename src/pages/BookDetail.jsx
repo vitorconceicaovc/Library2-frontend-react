@@ -40,7 +40,7 @@ export function BookDetail() {
     );
 
     if (!book) {
-        return <div>Loading...</div>;
+        return <div>Loading...Restricted Area</div>;
     }
 
     return (
