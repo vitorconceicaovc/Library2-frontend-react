@@ -5,12 +5,14 @@ import { Books } from "./pages/Books";
 import { BookDetail } from "./pages/BookDetail";
 import { Authors } from "./pages/Authors";
 import { AuthorDetail } from "./pages/AuthorDetail";
+import { Register } from "./pages/Register";
 
 function App() {
   return (
     <>
     <Nav />
     <Routes>
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
         <Route path="/book/:id" element={<BookDetail />} />

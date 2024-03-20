@@ -45,11 +45,21 @@ export const getAuthors = async () => {
 }
 
 export const getAuthorById = async (id) => {
-    try {
-      const response = await instance.get(`/authors/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching book with ID ${id}:`, error);
-      throw error;
-    }
-  };
+  try {
+    const response = await instance.get(`/authors/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching book with ID ${id}:`, error);
+    throw error;
+  }
+};
+
+export const registerUser = async (userData) => {
+  try {
+    const response = await instance.post('/users/register', userData);
+    return response.data;
+  } catch (error) {
+    console.error('Error registering user:', error.response.data);
+    throw error.response.data;
+  }
+};
