@@ -1,18 +1,26 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const Nav = () => {
-    return(
+
+    const handleLogOut = () => {
+        localStorage.removeItem('token')
+        window.location.reload(false);
+    }
+
+    return (
         <>
             <ul>
-                
                 <li><Link to='/'>Home</Link></li>
                 <li><Link to='/books'>All books</Link></li>
                 <li><Link to='/authors'>All authors</Link></li>
+                <li><Link to='/profile'>Profile</Link></li>
+                <br />
                 <li><Link to='/register'>Register</Link></li>
-                
+                <li><Link to='/login'>Login</Link></li>
+                <li><Link onClick={() => handleLogOut()} >Logout</Link></li>
             </ul>
         </>
-    )
+    );
 }
 
-export default Nav
+export default Nav;

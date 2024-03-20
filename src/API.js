@@ -63,3 +63,46 @@ export const registerUser = async (userData) => {
     throw error.response.data;
   }
 };
+
+export const loginUser = async (userData) => {
+  try {
+    const response = await instance.post('/users/login', userData);
+    return response.data;
+  } catch (error) {
+    console.error('Error logging in:', error.response.data);
+    throw error.response.data;
+  }
+}
+
+export const verifyToken = async () => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('Token not found in localStorage');
+    return false;
+  }
+
+  try {
+    const response = await fetch('http://localhost:3000/api/users/verifytoken', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ token }),
+    });
+
+    if (!response.ok) {
+      // refreshToken();
+      throw new Error('Token verification failed');
+    }
+
+    const verificationData = await response.json();
+    console.log('Token verification response:', verificationData);
+    return true;
+  } catch (error) {
+    console.error('Token verification error:', error.message);
+    return false;
+  }
+};
+
