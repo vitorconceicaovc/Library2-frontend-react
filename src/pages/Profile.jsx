@@ -14,6 +14,7 @@ export function Profile() {
             const tokenValid = await verifyToken();
             if (!tokenValid) {
                 navigate('/');
+                localStorage.removeItem('token')
             }
             if (tokenValid){
                 decodeToken()

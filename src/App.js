@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Nav from "./components/nav/Nav";
 import { Home } from "./pages/Home";
@@ -9,17 +10,22 @@ import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { Profile } from "./pages/Profile";
 
+
 function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
     <>
-    <Nav />
+    <Nav isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
     <Routes>
         <Route path="/" element={<Home />} />
 
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
         <Route path="/profile" element={<Profile />}/>
 
         <Route path="/books" element={<Books />} />
@@ -27,7 +33,6 @@ function App() {
         <Route path="/authors" element={<Authors />} />
         <Route path="/author/:id" element={<AuthorDetail />} />
         {/* <Route path="/requirements" element={<Requirements />} /> */}
-        {/* <Route path="/profile" element={<Profile />} /> */}
     </Routes>
   </>
   )
