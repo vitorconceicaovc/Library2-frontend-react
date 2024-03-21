@@ -15,13 +15,27 @@ export const getBooks = async () => {
 };
 
 export const getBookById = async (id) => {
-    try {
-      const response = await instance.get(`/books/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching book with ID ${id}:`, error);
-      throw error;
-    }
+
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('Token not found in localStorage');
+    return false;
+  }
+
+  try {
+    const response = await instance.get(`http://localhost:3000/api/books/${id}`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`,
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching book with ID ${id}:`, error);
+    throw error;
+  }
 };
 
 export const getBooksInstances = async () => {
@@ -45,8 +59,22 @@ export const getAuthors = async () => {
 }
 
 export const getAuthorById = async (id) => {
+
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('Token not found in localStorage');
+    return false;
+  }
+
   try {
-    const response = await instance.get(`/authors/${id}`);
+    const response = await instance.get(`http://localhost:3000/api/authors/${id}`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`,
+      }
+    });
     return response.data;
   } catch (error) {
     console.error(`Error fetching book with ID ${id}:`, error);

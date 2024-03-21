@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { registerUser } from '../API';
 
 export function Register() {
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',

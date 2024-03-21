@@ -11,8 +11,11 @@ export function BookDetail() {
         const fetchBook = async () => {
             try {
                 const bookData = await getBookById(id);
-                setBook(bookData.book); // Corrigindo para acessar bookData.book
-                console.log('Book Details:', bookData); 
+                setBook(bookData.book);
+                console.log('Book Detailss:', book); 
+
+                // 
+                // console.log('Book Details:', book); 
             } catch (error) {
                 console.error('Error fetching book details:', error);
             }
