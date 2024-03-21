@@ -1,11 +1,30 @@
 import { useEffect, useState } from "react"
-import { getAuthors, getBooks, getBooksInstances } from "../API"
+import { getAuthors, getBooks, getBooksInstances, verifyToken } from "../API"
+import { useAuth } from "../context/AuthContext";
 
 export function Home(){
+
+    const { setIsLoggedIn } = useAuth();
 
     const [books, setBooks] = useState([])
     const [booksInstances, setBooksInstances] = useState([])
     const [authors, setAuthor] = useState([])
+
+    useEffect(() => {
+        const checkToken = async () => {
+            const tokenValid = await verifyToken()
+            
+            if (!tokenValid) {
+                localStorage.removeItem('token')
+            }
+
+            if (tokenValid){
+                setIsLoggedIn(true)
+            }
+        };
+        
+        checkToken();
+    }, []);
 
     useEffect(() => {
         const fetchBooks = async () => {

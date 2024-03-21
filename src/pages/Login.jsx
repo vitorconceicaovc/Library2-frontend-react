@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../API";
+import { useAuth } from "../context/AuthContext";
 
-export function Login({ setIsLoggedIn }) {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export function Login() {
+    const { setIsLoggedIn } = useAuth();
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,8 +21,9 @@ export function Login({ setIsLoggedIn }) {
       const data = await loginUser(userData);
 
       localStorage.setItem('token', data.token);
-      setIsLoggedIn(true); // Definindo o estado como true após o login
-      navigate('/profile');
+      setIsLoggedIn(true)
+      navigate('/');
+      window.location.reload();
     } catch (error) {
       console.error('Login error:', error.message);
     }

@@ -1,38 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { verifyToken } from "../API";
-
-import { jwtDecode } from "jwt-decode";
 
 export function Profile() {
 
+    const { username, isLoggedIn } = useAuth();
     const navigate = useNavigate();
-    const [username, setUsername] = useState('')
 
     useEffect(() => {
-        const checkToken = async () => {
-            const tokenValid = await verifyToken();
-            if (!tokenValid) {
+        const verifyLogin = () => {
+            if (!isLoggedIn) {
                 navigate('/');
-                localStorage.removeItem('token')
             }
-            if (tokenValid){
-                decodeToken()
-            }
-            
-        };
-        
-        checkToken();
-    }, [navigate]);
-
-    const decodeToken = () => {
-        const token = localStorage.getItem('token')
-        const decoded = jwtDecode(token);
-        console.log('decoded token',decoded);
-        setUsername(decoded.name)
-    }
+        }
+        verifyLogin()
+    }, [])
 
     return(
-        <><h1>Hello {username}</h1></>
+        <><h1>Profile: {username}</h1></>
     )
 }

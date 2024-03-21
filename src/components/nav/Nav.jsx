@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
-const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
+const Nav = () => {
+
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
 
     const handleLogOut = () => {
         localStorage.removeItem('token')
